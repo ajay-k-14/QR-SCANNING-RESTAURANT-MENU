@@ -258,7 +258,7 @@ body {
     content: '';
     position: absolute; 
     inset: 0;
-    background: hsl(25, 35%, 25%, 0.4);
+    background: white;
 }
 
 .hero-content { 
@@ -878,5 +878,6 @@ body {
 }
 
 }
+
 
 
