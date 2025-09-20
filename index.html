@@ -1,0 +1,184 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Millenium Restaurant- Digital Menu & Ordering</title>
+    <meta name="description" content="Experience culinary excellence at The Millenium
+        Restaurant. Order online with our digital menu system.">
+    <link rel="stylesheet" href="components/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+ </head>
+ <body>
+
+ <!-- Header-->
+
+    <header class="header">
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <h1>The Millenium</h1>
+                <span>Restaurant</span>
+            </div>
+            <nav class="nav">
+                <a href="#menu" class="nav-link">Menu</a>
+                <!-- <a href="#about" class="nav-link">About</a> -->
+                <a href="#contact" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+                <!-- <button class="btn btn-outline btn-sm" onclick="showQrCode()">
+                    <i data-lucide="qr-code"></i>
+                    QRMenu
+                </button> -->
+                <button class="btn btn-cart btn-sm" onclick="toggleCart()">
+                    <i data-lucide="shopping-cart"></i>
+                    Cart
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+                <button class="btn btn-ghost btn-sm" onclick="showStaffLogin()">
+                    <i data-lucide="staff-login"></i>
+                    <li>
+                        <a class="nav-link" href="./stafflogin.html">Staff login</a>
+                    </li>
+                </button>
+            </div>
+        </div>
+    </div>
+ </header>
+
+ <!-- Hero Section-->
+
+ <section class="hero">
+    <div class="hero-background"></div>
+        <div class="hero-content">
+            <h1 class="hero-title animate-fade-in">
+            Welcome to
+            <span class="hero-title-accent">The Millenium</span>
+            </h1>
+            <p class="hero-description animate-slide-up">
+            Experience culinary excellence with our carefully crafted dishes,madefromthe finest ingredients and served with passion.
+            </p>
+            <div class="hero-buttons animate-slide-up">
+                <button class="btn btn-hero btn-lg" onclick="scrollToMenu()">
+                ViewOur Menu
+                <!-- </button>
+                <button class="btn btn-outline-white btn-lg">
+                MakeReservation
+                </button> -->
+            </div>
+            <!-- <div class="qr-section">
+                <p>Scan QR Code to Order</p>
+                <div class="qr-code">
+                    <div class="qr-placeholder">
+                        <span>QR Code</span>
+                    </div>
+                </div>
+                <p class="qr-instruction">Point your camera here</p>
+            </div>
+        </div> -->
+ </section>
+
+ <!-- Menu Section-->
+
+ <section id="menu" class="menu-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>Our Menu</h2>
+            <p>Discover our carefully curated selection of dishes, each prepared with love and the finest ingredients.</p>
+        </div>
+        <div id="menuContainer"></div>
+    </div>
+ </section>
+
+<!-- Cart Sidebar-->
+
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
+<div class="cart-sidebar" id="cartSidebar">
+    <div class="cart-header">
+        <div class="cart-title">
+            <i data-lucide="shopping-bag"></i>
+            <span>Your Cart</span>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="closeCart()">
+        <i data-lucide="x"></i>
+        </button>
+    </div>
+<div class="cart-content" id="cartContent">
+    <div class="empty-cart" id="emptyCart">
+        <i data-lucide="shopping-bag" class="empty-cart-icon"></i>
+        <h3>Your cart is empty</h3>
+        <p>Add somedelicious items from our menu!</p>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+</div>
+<div class="cart-footer" id="cartFooter" style="display: none;">
+    <div class="cart-total">
+        <span>Total:</span>
+        <span id="cartTotal">₹0.00</span>
+    </div>
+    <div class="cart-actions">
+        <button class="btn btn-outline" onclick="clearCart()">Clear Cart</button>
+        <button class="btn btn-hero" onclick="placeOrder()">Place Order</button>
+    </div>
+    <p class="cart-note">Orders will be prepared fresh for you</p>
+</div>
+
+ <!-- Footer-->
+
+<footer class="footer">
+    <div class="container">
+        <h3>The Millenium Restaurant</h3>
+        <p>Experience culinary excellence in the heart of the city</p>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <p>123 Street</p>
+                <p>Phone: (555) 123-4567</p>
+            </div>
+            <div class="footer-section">
+                <h4>Hours</h4>
+                <p>Mon-Thu: 11am-10pm</p>
+                <p>Fri-Sat: 11am-11pm</p>
+                <p>Sunday: 12pm-9pm</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+ <!-- Toast Notification-->
+
+<div class="toast" id="toast">
+    <div class="toast-content">
+        <span id="toastMessage"></span>
+    </div>
+</div>
+
+ <!-- Modal for QR Code-->
+<div class="modal-overlay" id="qrModal" onclick="closeQrModal()">
+    <div class="modal" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h3>QR Code Menu</h3>
+            <button onclick="closeQrModal()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <div class="modal-content">
+            <div class="qr-display">
+                <div class="qr-code-large">
+                    <span>QR Code for Menu</span>
+                </div>
+                <p>Customers can scan this QR code to access the digital menu and place orders directly from their phones.</p>
+            </div>
+        </div>
+    </div>
+ </div>
+
+ 
+
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="/components/js/script.js"></script>
+
+ </body>
+ </html>

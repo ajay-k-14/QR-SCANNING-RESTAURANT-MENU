@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>staff-login</title>
+    <link rel="stylesheet" href="components/css/staff.css">
+    <link rel="stylesheet" href="components/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/lucide.min.css">
+</head>
+<body>
+
+<!-- Staff Login Modal -->
+
+<div class="modal" id="staff-login-modal" style="display: block;">
+    <div class="modal-content staff-login-content">
+        <div class="modal-header">
+            <h3>Staff Login</h3>
+            <button class="btn btn-ghost btn-sm" onclick="showStaffLogin()">
+                <i data-lucide="x"></i>
+            </button>
+        </div>
+        <form class="staff-login-form">
+            <div class="form-group">
+                <label for="staff-username">Username</label>
+                <input type="text" id="staff-username" name="username" required autocomplete="username">
+            </div>
+            <div class="form-group">
+                <label for="staff-password">Password</label>
+                <div style="display: block; align-items: center;">
+                    <input type="password" id="staff-password" name="password" required autocomplete="current-password" style="flex:1;">
+                    <button type="button" id="password-toggle" onclick="togglePassword()" style="margin-left: 8px;">👁️</button>
+                </div>
+            </div>
+            <div id="login-error" style="color: red; display: none; margin-bottom: 10px;"></div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-hero" onclick="handleStaffLogin(event)">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="staff-dashboard-modal" style="display:none;">
+    <h1>Staff Dashboard</h1>
+</div>
+
+    <script src="/components/js/script.js"></script>
+</body>
+</html>
