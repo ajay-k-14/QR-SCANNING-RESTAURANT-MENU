@@ -246,7 +246,7 @@ body {
 .hero-background { 
     position: absolute; 
     /* inset: 0; */
-    background-image: url("/components/image/restaurant.jpg"); 
+    background-image: url("../components/image/restaurant.jpg"); 
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
@@ -876,4 +876,5 @@ body {
 .cart-sidebar { 
     max-width: 100%;
 }
+
 }
