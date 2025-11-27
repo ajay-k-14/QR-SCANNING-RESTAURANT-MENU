@@ -246,7 +246,6 @@ body {
 .hero-background { 
     position: absolute; 
     /* inset: 0; */
-    background-image: url("components/image/restaurant.jpg"); 
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat;
@@ -265,7 +264,7 @@ body {
     position: relative; 
     z-index: 10; 
     text-align: center; 
-    color: white; 
+    color: rgb(0, 0, 0); 
     padding: 2rem; 
     max-width: 4xl;
 }
@@ -278,7 +277,7 @@ body {
 
 .hero-title-accent { 
     display: block; 
-    color: var(--golden-accent);
+    color: rgb(239, 207, 0);
 }
 
 @media (min-width: 768px) {
@@ -289,7 +288,7 @@ body {
 .hero-description { 
     font-size: 1.25rem; 
     margin-bottom: 2rem; 
-    color: var(--warm-cream);
+    color: rgb(0, 0, 0); 
 }
 
 @media (min-width: 768px) {
