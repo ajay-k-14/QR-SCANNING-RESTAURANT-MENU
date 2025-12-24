@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Dashboard</title>
+    <link rel="stylesheet" href="./components/css/staff-style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Staff Dashboard</h1>
+            <div class="header-actions">
+                <span id="staffName">Welcome, Staff</span>
+                <button id="logoutBtn" class="logout-btn">Logout</button>
+            </div>
+        </header>
+        
+        <main class="dashboard-content">
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <h3>Total Orders</h3>
+                    <p id="totalOrders">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending</h3>
+                    <p id="pendingOrders">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Preparing</h3>
+                    <p id="preparingOrders">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed</h3>
+                    <p id="completedOrders">0</p>
+                </div>
+            </section>
+            
+            <!-- Active Orders Section -->
+            <section class="orders-section">
+                <h2>Active Orders</h2>
+                <div id="activeOrders" class="orders-grid">
+                    <p class="no-orders">No active orders</p>
+                </div>
+            </section>
+            
+            <!-- Completed Orders Section -->
+            <section class="orders-section">
+                <h2>Completed Orders</h2>
+                <div id="completedOrdersList" class="orders-grid">
+                    <p class="no-orders">No completed orders</p>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="./components/js/staff-dashboard.js"></script>
+</body>
+</html>

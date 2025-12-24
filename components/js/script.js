@@ -540,16 +540,41 @@ function placeOrder() {
     const total = Object.entries(cart).reduce((sum, [itemId, quantity]) => {
     const item = menuItems.find(i => i.id === itemId); 
     return sum + (item.price * quantity);}, 0);
-    showToast(`Order placed! ${totalItems} items - Total: $${total.toFixed(2)}`);
-
-    // In a real app, this would send the order to the backend 
-    console.log('Order placed:', {
-        items: cart, total: total,
-        timestamp: new Date()
+    
+    // Convert cart to order items format
+    const orderItems = Object.entries(cart).map(([itemId, quantity]) => {
+        const item = menuItems.find(i => i.id === itemId);
+        return {
+            id: item.id,
+            name: item.name,
+            quantity: quantity,
+            price: item.price
+        };
     });
+    
+    // Get orders array and generate sequential order ID
+    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+    const orderNumber = orders.length + 1;
+    
+    // Create order object with sequential numbering
+    const order = {
+        id: orderNumber,
+        time: new Date().toISOString(),
+        items: orderItems,
+        total: total,
+        status: 'pending'
+    };
+    
+    // Save order to localStorage
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+    
+    showToast(`Order placed! ${totalItems} items - Total: ₹${total.toFixed(2)}`);
+
+    // Log for debugging
+    console.log('Order placed:', order);
 
     // Clear cart after order 
-
     setTimeout(() => { clearCart(); closeCart();}, 2000);
 }
 
