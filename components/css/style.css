@@ -576,6 +576,7 @@ body {
     flex-direction: column; 
     transform: translateX(100%); 
     transition: var(--transition-smooth);
+    overflow: hidden;
 }
 
 .cart-sidebar.active { 
@@ -589,6 +590,7 @@ body {
     background: var(--gradient-warm); 
     color: var(--primary-foreground); 
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
 }
 
 .cart-title { 
@@ -602,6 +604,7 @@ body {
 .cart-content { 
     flex: 1; 
     overflow-y: auto;
+    min-height: 0;
 }
 
 .empty-cart { 
