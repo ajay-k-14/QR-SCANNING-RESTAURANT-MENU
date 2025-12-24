@@ -689,15 +689,16 @@ body {
     padding: 1rem; 
     border-top: 1px solid var(--border); 
     background: var(--warm-cream);
+    flex-shrink: 0;
 }
 
 .cart-total { 
     display: flex; 
     justify-content: space-between; 
     align-items: center; 
-    font-size: 1.125rem; 
+    font-size: 1rem; 
     font-weight: 700;
-     margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .cart-total span:first-child { 
@@ -710,9 +711,15 @@ body {
 
 .cart-actions { 
     display: grid; 
-    grid-template-columns: 1fr 1fr; 
+    grid-template-columns: 1fr; 
     gap: 0.5rem; 
     margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+    .cart-actions {
+        grid-template-columns: 1fr 1fr;
+    }
 }
 
 .cart-note { 
