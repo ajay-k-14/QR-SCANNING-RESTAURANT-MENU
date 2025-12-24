@@ -390,22 +390,7 @@ function closeQrModal() {
     document.body.style.overflow = '';
 }
 
-// Staff Login Functions
 
-    
-function togglePasswordVisibility() {
-    const passwordInput = document.getElementById('staff-password');
-    const toggleBtn = document.getElementById('password-toggle');
-        
-    if (passwordInput.type === 'password') {
-        passwordInput.type = 'text';
-        toggleBtn.textContent = '🙈';
-    } 
-    else {
-        passwordInput.type = 'password';
-        toggleBtn.textContent = '👁️';
-        }
-}
     
 // Staff Dashboard Functions
     
@@ -423,108 +408,6 @@ function showStaffDashboard() {
     
 // renderDashboard and staff dashboard modal logic can be implemented here if needed
     
-function renderOrderCard(order) {
-    const statusColors = {
-        pending: 'status-pending',
-        preparing: 'status-preparing',
-        ready: 'status-ready',
-        completed: 'status-completed'
-    };
-        
-    const statusIcons = {
-        pending: '⏳',
-        preparing: '👨‍🍳',
-        ready: '✅',
-        completed: '🎉'
-    };
-        
-    const nextStatus = this.getNextStatus(order.status);
-        
-    return `
-         <div class="order-card">
-            <div class="order-header">
-                <h4>Order #${order.id}</h4>
-                <span class="status-badge ${statusColors[order.status]}">
-                    ${statusIcons[order.status]} ${order.status.charAt(0).toUpperCase() + order.status.slice(1)}
-                </span>
-            </div>
-            <div class="order-details">
-                <p><strong>Time:</strong> ${new Date(order.timestamp).toLocaleString()}</p>
-                <p><strong>Items:</strong></p>
-                <ul class="order-items">
-                    ${order.items.map(item => `
-                    <li>${item.quantity}x ${item.name} - $${(item.price * item.quantity).toFixed(2)}</li>`).join('')}
-                </ul>
-                <p class="order-total"><strong>Total: $${order.total.toFixed(2)}</strong></p>
-            </div>
-            ${order.status !== 'completed' ? `
-            <button onclick="app.updateOrderStatus('${order.id}', '${nextStatus}')" class="btn btn-primary btn-small">Mark as ${nextStatus.charAt(0).toUpperCase() + nextStatus.slice(1)}
-                </button>` : ''}
-        </div>
-    `;
-}
-    
-function getNextStatus(currentStatus) {
-    const statusFlow = {
-        'pending': 'preparing',
-        'preparing': 'ready',
-        'ready': 'completed'
-    };
-    return statusFlow[currentStatus] || 'completed';
-}
-    
-function updateOrderStatus(orderId, newStatus) {
-    const order = this.orders.find(o => o.id === orderId);
-    if (order) {
-        order.status = newStatus;
-        localStorage.setItem('restaurant-orders', JSON.stringify(this.orders));
-        this.renderDashboard();
-    }
-}
-    
-function staffLogout() {
-    isStaffLoggedIn = false;
-    currentStaff = null;
-    hideModals();
-}
-    
-function hideModals() {
-    document.querySelectorAll('.modal').forEach(modal => {
-        modal.style.display = 'none';
-    });
-}
-
-// Initialize the app when DOM is loaded
-// document.addEventListener('DOMContentLoaded', () => {
-//     window.app = new RestaurantApp();
-// });
-
-// Global functions for HTML onclick handlers
-function closeModal() {
-    hideModals();
-}
-
-function placeOrder() {
-    placeOrder();
-}
-
-function submitStaffLogin(event) {
-    handleStaffLogin(event);
-}
-
-function togglePassword() {
-    togglePasswordVisibility();
-}
-
-function staffLogout() {
-    staffLogout();
-}
-
-// function showStaffDashboard() {
-//     showStaffDashboard();
-// }
-
-
 // Navigation Functions
 
 function scrollToMenu() {
