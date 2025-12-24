@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const password = passwordInput.value;
         
         // Demo credentials - in production, this would be server-side authentication
-        if (username === 'staff' && password === 'password123') {
+        if (username === 'ajay' && password === 'password') {
             // Create session
             const session = {
                 username: username,
