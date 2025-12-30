@@ -351,10 +351,11 @@ function updateCartDisplay() {
 
 // Cart UI Functions
 
-function toggleCart() {
-    console.log('toggleCart called');
-    console.log('cartSidebar:', cartSidebar);
-    console.log('cartOverlay:', cartOverlay);
+function toggleCart(event) {
+    // Prevent click from bubbling to overlay
+    if (event) {
+        event.stopPropagation();
+    }
     
     if (!cartSidebar || !cartOverlay) {
         console.error('Cart elements not found!');
@@ -362,7 +363,6 @@ function toggleCart() {
     }
     
     const isActive = cartSidebar.classList.contains('active'); 
-    console.log('Cart is currently active:', isActive);
     
     if (isActive) {
        closeCart();
@@ -373,15 +373,17 @@ function toggleCart() {
 }
 
 function openCart() {
-    console.log('Opening cart...');
     cartOverlay.classList.add('active'); 
     cartSidebar.classList.add('active'); 
     document.body.style.overflow = 'hidden';
-    console.log('Cart opened');
 }
 
-function closeCart() {
-    console.log('Closing cart...');
+function closeCart(event) {
+    // Prevent click from bubbling
+    if (event) {
+        event.stopPropagation();
+    }
+    
     cartOverlay.classList.remove('active'); 
     cartSidebar.classList.remove('active'); 
     document.body.style.overflow = '';

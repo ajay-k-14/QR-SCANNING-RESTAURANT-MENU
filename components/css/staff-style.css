@@ -734,25 +734,3 @@ body {
         -moz-osx-font-smoothing: grayscale;
     }
 }
-
-/* Dark Mode Support (if system prefers dark) */
-@media (prefers-color-scheme: dark) {
-    body {
-        background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-        color: #ffffff;
-    }
-
-    .login-card,
-    .order-card,
-    .stat-card {
-        background: #2a2a3e;
-        color: #ffffff;
-    }
-
-    input,
-    textarea {
-        background: #3a3a4e;
-        color: #ffffff;
-        border-color: #4a4a5e;
-    }
-}

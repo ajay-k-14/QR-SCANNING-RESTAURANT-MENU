@@ -549,38 +549,40 @@ body {
 .cart-overlay { 
     position: fixed; 
     inset: 0;
-    background: rgba(var(--rich-brown), 0.5); 
+    background: rgba(0, 0, 0, 0.5); 
     backdrop-filter: blur(4px); 
-    z-index: 50; 
+    z-index: 40; 
     opacity: 0; 
     visibility: hidden; 
-    transition: var(--transition-smooth);
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    pointer-events: none;
 }
 
 .cart-overlay.active {
     opacity: 1; 
     visibility: visible;
+    pointer-events: auto;
 }
 
 .cart-sidebar { 
     position: fixed; 
     top: 0; 
     right: 0; 
-    width: 100%; 
-    max-width: 28rem; 
+    width: 400px; 
     height: 100vh; 
     background: var(--card); 
-    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1); 
-    z-index: 51; 
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.2); 
+    z-index: 50; 
     display: flex; 
     flex-direction: column; 
-    transform: translateX(100%); 
-    transition: var(--transition-smooth);
+    transform: translateX(450px); 
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
+    will-change: transform;
 }
 
 .cart-sidebar.active { 
-    transform: translateX(0);
+    transform: translateX(0) !important;
 }
 .cart-header { 
     display: flex; 
@@ -1047,12 +1049,19 @@ body {
 
   .cart-sidebar {
     max-width: 100%;
+    width: 100%;
+    height: auto;
+    max-height: 60vh;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    max-height: 50vh;
-    border-radius: 1rem 1rem 0 0;
+    transform: translateY(100%);
+    border-radius: 1.5rem 1.5rem 0 0;
+  }
+
+  .cart-sidebar.active {
+    transform: translateY(0);
   }
 
   .cart-content {
@@ -1103,10 +1112,13 @@ body {
     gap: 2rem;
   }
 
+  /* Keep cart as fixed positioned for slide-in animation */
   .cart-sidebar {
-    position: sticky;
-    top: 100px;
-    height: fit-content;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 350px !important;
+    height: 100vh !important;
   }
 }
 
@@ -1138,10 +1150,13 @@ body {
     gap: 2.5rem;
   }
 
+  /* Keep cart as fixed positioned for slide-in animation */
   .cart-sidebar {
-    position: sticky;
-    top: 120px;
-    height: fit-content;
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    width: 400px !important;
+    height: 100vh !important;
   }
 
   .header-content {
