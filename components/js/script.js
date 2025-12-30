@@ -534,3 +534,4 @@ window.removeFromCart = removeFromCart;
 window.toggleCart = toggleCart;
 window.placeOrder = placeOrder;
 window.clearCart = clearCart;
+window.closeCart = closeCart;
