@@ -1,8 +1,8 @@
 // Staff Dashboard JavaScript - Global Real-time Order Management System
 
-// Configuration
-const API_BASE_URL = 'http://localhost:5000';
-const WS_URL = 'http://localhost:5000';
+// Configuration - works for both localhost and deployed servers
+const API_BASE_URL = window.location.origin;
+const WS_URL = window.location.origin;
 
 // Global state
 let allOrders = [];

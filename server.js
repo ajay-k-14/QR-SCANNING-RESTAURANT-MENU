@@ -18,11 +18,12 @@ const __dirname = dirname(__filename);
 const app = express();
 const httpServer = createServer(app);
 
-// Socket.IO configuration with CORS
+// Socket.IO configuration with CORS - works for localhost and global access
 const io = new Server(httpServer, {
   cors: {
-    origin: process.env.CLIENT_URL || 'http://localhost:5000',
-    methods: ['GET', 'POST']
+    origin: '*', // Allow all origins for self-hosted global access
+    methods: ['GET', 'POST'],
+    credentials: true
   }
 });
 
@@ -331,11 +332,13 @@ io.on('connection', (socket) => {
 // ============ Server Startup ============
 
 const PORT = process.env.PORT || 5000;
-httpServer.listen(PORT, () => {
+httpServer.listen(PORT, '0.0.0.0', () => {
   console.log(`\n╔════════════════════════════════════════╗`);
   console.log(`║  QR Menu Restaurant - Backend Server   ║`);
   console.log(`║  🚀 Running on port ${PORT}               ║`);
   console.log(`║  📍 http://localhost:${PORT}              ║`);
+  console.log(`║  🌐 http://YOUR_IP:${PORT}                ║`);
+  console.log(`║  🌍 http://YOUR_DOMAIN:${PORT}            ║`);
   console.log(`╚════════════════════════════════════════╝\n`);
 });
 

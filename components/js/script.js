@@ -418,8 +418,8 @@ function scrollToMenu() {
 
 // Order Functions 
 
-// API Base URL - configure according to your server
-const API_BASE_URL = 'http://localhost:5000';
+// API Base URL - works for both localhost and deployed servers
+const API_BASE_URL = window.location.origin;
 
 async function placeOrder() {
     const totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
