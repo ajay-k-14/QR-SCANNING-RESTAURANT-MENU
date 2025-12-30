@@ -418,12 +418,22 @@ function scrollToMenu() {
 
 // Order Functions 
 
-function placeOrder() {
-    const totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0); 
+// API Base URL - configure according to your server
+const API_BASE_URL = 'http://localhost:5000';
+
+async function placeOrder() {
+    const totalItems = Object.values(cart).reduce((sum, qty) => sum + qty, 0);
     const total = Object.entries(cart).reduce((sum, [itemId, quantity]) => {
-    const item = menuItems.find(i => i.id === itemId); 
-    return sum + (item.price * quantity);}, 0);
-    
+        const item = menuItems.find(i => i.id === itemId);
+        return sum + (item.price * quantity);
+    }, 0);
+
+    // Validate cart
+    if (totalItems === 0 || total <= 0) {
+        showToast('Your cart is empty. Please add items before ordering.');
+        return;
+    }
+
     // Convert cart to order items format
     const orderItems = Object.entries(cart).map(([itemId, quantity]) => {
         const item = menuItems.find(i => i.id === itemId);
@@ -434,31 +444,44 @@ function placeOrder() {
             price: item.price
         };
     });
-    
-    // Get orders array and generate sequential order ID
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    const orderNumber = orders.length + 1;
-    
-    // Create order object with sequential numbering
-    const order = {
-        id: orderNumber,
-        time: new Date().toISOString(),
-        items: orderItems,
-        total: total,
-        status: 'pending'
-    };
-    
-    // Save order to localStorage
-    orders.push(order);
-    localStorage.setItem('orders', JSON.stringify(orders));
-    
-    showToast(`Order placed! ${totalItems} items - Total: ₹${total.toFixed(2)}`);
 
-    // Log for debugging
-    console.log('Order placed:', order);
+    try {
+        // Show loading toast
+        showToast('Placing your order...');
 
-    // Clear cart after order 
-    setTimeout(() => { clearCart(); closeCart();}, 2000);
+        // Send order to backend API
+        const response = await fetch(`${API_BASE_URL}/api/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                items: orderItems,
+                total: total
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to place order');
+        }
+
+        const data = await response.json();
+        const orderId = data.order.orderId;
+
+        showToast(`✓ Order #${orderId} placed! ${totalItems} items - Total: ₹${total.toFixed(2)}`);
+        console.log('Order placed successfully:', data.order);
+
+        // Clear cart after successful order
+        setTimeout(() => {
+            clearCart();
+            closeCart();
+        }, 2000);
+
+    } catch (error) {
+        console.error('Error placing order:', error);
+        showToast(`✗ Error: ${error.message}. Please try again.`);
+    }
 }
 
 // Keyboard shortcuts
