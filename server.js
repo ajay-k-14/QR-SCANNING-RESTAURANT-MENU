@@ -34,9 +34,16 @@ app.use(express.static('.'));
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/qr-menu')
-  .then(() => console.log('✓ MongoDB connected'))
+  .then(() => {
+    const dbName = mongoose.connection.name;
+    const dbHost = mongoose.connection.host || (mongoose.connection.client && mongoose.connection.client.s && mongoose.connection.client.s.options && mongoose.connection.client.s.options.servers) || null;
+    console.log(`✓ MongoDB connected — database: ${dbName}`);
+    if (dbHost) console.log(`  host: ${JSON.stringify(dbHost)}`);
+  })
   .catch(err => {
-    console.error('✗ MongoDB connection error:', err);
+    console.error('✗ MongoDB connection error:');
+    console.error(err && err.message ? err.message : err);
+    console.error('Ensure your MONGODB_URI in .env is correct and your Atlas IP whitelist allows this IP.');
     // Continue running without DB if connection fails (fallback to in-memory storage)
   });
 
