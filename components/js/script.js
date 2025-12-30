@@ -276,12 +276,6 @@ function clearCart() {
     renderMenu(); // Re-render to update quantities
 }
 
-function clearCart() {
-    cart = {};
-    showToast('Cart cleared - All items have been removed'); updateCartDisplay();
-    renderMenu(); // Re-render to update quantities
-}
-
 function updateCartDisplay() { 
 
     // Update cart badge
@@ -415,6 +409,15 @@ function scrollToMenu() {
         behavior: 'smooth'
     });
 }
+
+// Make functions available globally for onclick handlers
+window.scrollToMenu = scrollToMenu;
+window.addToCart = addToCart;
+window.removeFromCart = removeFromCart;
+window.toggleCart = toggleCart;
+window.updateQuantity = updateQuantity;
+window.placeOrder = placeOrder;
+window.clearCart = clearCart;
 
 // Order Functions 
 
