@@ -156,23 +156,34 @@ const menuItems = [
 
 let cart = {};
 
-// DOM Elements
-
-const cartBadge = document.getElementById('cartBadge'); 
-const cartOverlay = document.getElementById('cartOverlay'); 
-const cartSidebar = document.getElementById('cartSidebar'); 
-const cartContent = document.getElementById('cartContent'); 
-const cartItems = document.getElementById('cartItems'); 
-const cartFooter = document.getElementById('cartFooter'); 
-const cartTotal = document.getElementById('cartTotal'); 
-const emptyCart = document.getElementById('emptyCart'); 
-const toast = document.getElementById('toast'); 
-const toastMessage = document.getElementById('toastMessage'); 
-const qrModal = document.getElementById('qrModal');
+// DOM Elements (will be initialized in DOMContentLoaded)
+let cartBadge;
+let cartOverlay;
+let cartSidebar;
+let cartContent;
+let cartItems;
+let cartFooter;
+let cartTotal;
+let emptyCart;
+let toast;
+let toastMessage;
+let qrModal;
 
 // Initialize the application
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize DOM elements
+    cartBadge = document.getElementById('cartBadge'); 
+    cartOverlay = document.getElementById('cartOverlay'); 
+    cartSidebar = document.getElementById('cartSidebar'); 
+    cartContent = document.getElementById('cartContent'); 
+    cartItems = document.getElementById('cartItems'); 
+    cartFooter = document.getElementById('cartFooter'); 
+    cartTotal = document.getElementById('cartTotal'); 
+    emptyCart = document.getElementById('emptyCart'); 
+    toast = document.getElementById('toast'); 
+    toastMessage = document.getElementById('toastMessage'); 
+    qrModal = document.getElementById('qrModal');
 
     // Initialize Lucide icons 
 
@@ -341,7 +352,18 @@ function updateCartDisplay() {
 // Cart UI Functions
 
 function toggleCart() {
+    console.log('toggleCart called');
+    console.log('cartSidebar:', cartSidebar);
+    console.log('cartOverlay:', cartOverlay);
+    
+    if (!cartSidebar || !cartOverlay) {
+        console.error('Cart elements not found!');
+        return;
+    }
+    
     const isActive = cartSidebar.classList.contains('active'); 
+    console.log('Cart is currently active:', isActive);
+    
     if (isActive) {
        closeCart();
     } 
@@ -351,12 +373,15 @@ function toggleCart() {
 }
 
 function openCart() {
+    console.log('Opening cart...');
     cartOverlay.classList.add('active'); 
     cartSidebar.classList.add('active'); 
     document.body.style.overflow = 'hidden';
+    console.log('Cart opened');
 }
 
 function closeCart() {
+    console.log('Closing cart...');
     cartOverlay.classList.remove('active'); 
     cartSidebar.classList.remove('active'); 
     document.body.style.overflow = '';
@@ -443,6 +468,8 @@ async function placeOrder() {
         // Show loading toast
         showToast('Placing your order...');
 
+        console.log(`📤 Sending order to: ${API_BASE_URL}/api/orders`);
+
         // Send order to backend API
         const response = await fetch(`${API_BASE_URL}/api/orders`, {
             method: 'POST',
@@ -455,16 +482,19 @@ async function placeOrder() {
             })
         });
 
+        console.log(`📥 Response status: ${response.status}`);
+
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to place order');
+            console.error('API Error:', errorData);
+            throw new Error(errorData.message || `Server error: ${response.status}`);
         }
 
         const data = await response.json();
         const orderId = data.order.orderId;
 
+        console.log('✅ Order placed successfully:', data.order);
         showToast(`✓ Order #${orderId} placed! ${totalItems} items - Total: ₹${total.toFixed(2)}`);
-        console.log('Order placed successfully:', data.order);
 
         // Clear cart after successful order
         setTimeout(() => {
@@ -473,7 +503,7 @@ async function placeOrder() {
         }, 2000);
 
     } catch (error) {
-        console.error('Error placing order:', error);
+        console.error('❌ Error placing order:', error);
         showToast(`✗ Error: ${error.message}. Please try again.`);
     }
 }
