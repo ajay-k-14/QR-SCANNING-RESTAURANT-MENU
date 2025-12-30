@@ -410,15 +410,6 @@ function scrollToMenu() {
     });
 }
 
-// Make functions available globally for onclick handlers
-window.scrollToMenu = scrollToMenu;
-window.addToCart = addToCart;
-window.removeFromCart = removeFromCart;
-window.toggleCart = toggleCart;
-window.updateQuantity = updateQuantity;
-window.placeOrder = placeOrder;
-window.clearCart = clearCart;
-
 // Order Functions 
 
 // Import API configuration
@@ -535,3 +526,11 @@ function addEntranceAnimations() {
 }
 // Initialize entrance animations after a short delay 
 setTimeout(addEntranceAnimations, 500);
+
+// Make functions available globally for onclick handlers
+window.scrollToMenu = scrollToMenu;
+window.addToCart = addToCart;
+window.removeFromCart = removeFromCart;
+window.toggleCart = toggleCart;
+window.placeOrder = placeOrder;
+window.clearCart = clearCart;
