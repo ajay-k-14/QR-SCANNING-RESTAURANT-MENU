@@ -39,7 +39,7 @@ const menuItems = [
     // Appetizers
     {
     id: "app-1", 
-    name: "parippu Vada",
+    name: "Parippu Vada",
     description: "crispy lentin fitters spiced with ginger,curry leaves,and green chillies.", 
     price: 10, 
     category: "appetizers", 
